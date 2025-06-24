@@ -1,11 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
-    exit;
-}
-
-require 'db.php';
+require 'db.php';  // Aquí debe estar tu conexión PDO: $pdo
 
 function getNextImageName($dir = 'img/') {
     $files = scandir($dir);
@@ -21,9 +15,10 @@ function getNextImageName($dir = 'img/') {
     return "$next.jpg";
 }
 
-function getNextId($coleccion) {
-    $ultimo = $coleccion->findOne([], ['sort' => ['id' => -1]]);
-    return $ultimo ? $ultimo['id'] + 1 : 1;
+function getNextId($pdo) {
+    $stmt = $pdo->query("SELECT MAX(id) AS max_id FROM playeras");
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $row && $row['max_id'] !== null ? $row['max_id'] + 1 : 1;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -33,24 +28,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nuevoNombre = getNextImageName();
         $rutaDestino = 'img/' . $nuevoNombre;
         move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino);
-        $imagenNombre = $rutaDestino;
+        $imagenNombre = $nuevoNombre;
+    } else {
+        // Opcional: manejar error o imagen por defecto
+        $imagenNombre = null;
     }
 
-    $nuevaPlayera = [
-        'id' => getNextId($coleccion),
-        'nombre' => $_POST['nombre'],
-        'precio' => (float)$_POST['precio'],
-        'cantidad' => (int)$_POST['cantidad'],
-        'descripcion' => $_POST['descripcion'],
-        'imagen' => $nuevoNombre
-    ];
+    $id = getNextId($pdo);
+    $nombre = $_POST['nombre'];
+    $precio = (float)$_POST['precio'];
+    $stock = (int)$_POST['cantidad'];
+    $descripcion = $_POST['descripcion'];
 
-    $coleccion->insertOne($nuevaPlayera);
+    $stmt = $pdo->prepare("INSERT INTO playeras (id, nombre, precio, stock, descripcion, imagen) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$id, $nombre, $precio, $stock, $descripcion, $imagenNombre]);
+
     header("Location: find.php");
     exit;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
