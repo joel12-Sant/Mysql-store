@@ -20,7 +20,7 @@ INSERT INTO usuarios (id, nombre, correo, password, rol, creado_en) VALUES (
     1,
     'admin',
     'admin@tienda.com',
-    '$2y$10$wHvnB6W8uwH.U/yN.NhB7uI/1A8I6xC4QeZ9MycY7iRm6rF6bi2aW',
+    '$2y$10$uq/g.lnNidYM92Wg/tCMJuFOvramsZhfXUis3cj5xxawVhq5RXqwC',
     'admin',
     '2025-06-25 00:00:00'
 );
