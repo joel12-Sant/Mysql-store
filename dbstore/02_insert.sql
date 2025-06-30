@@ -16,11 +16,12 @@ INSERT INTO playeras (id, nombre, precio, cantidad, descripcion, imagen) VALUES
 (13, 'GraphQL', 25.00, 6, 'Playera GraphQL para APIs modernas.', '13.jpg'),
 (14, 'WordPress', 25.00, 11, 'Playera WordPress para creadores de sitios web.', '14.jpg');
 
-INSERT INTO usuarios (id, nombre, correo, password, rol, creado_en) VALUES (
+INSERT INTO usuarios (id, nombre, correo, password, direccion, rol, creado_en) VALUES (
     1,
     'admin',
     'admin@tienda.com',
     '$2y$10$uq/g.lnNidYM92Wg/tCMJuFOvramsZhfXUis3cj5xxawVhq5RXqwC',
+    'sin',
     'admin',
     '2025-06-25 00:00:00'
 );

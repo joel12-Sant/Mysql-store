@@ -8,6 +8,7 @@ CREATE TABLE usuarios (
     nombre VARCHAR(100) NOT NULL,
     correo VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
+    direccion VARCHAR(100) NOT NULL,
     rol ENUM('admin', 'cliente') DEFAULT 'cliente',
     creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
 );
