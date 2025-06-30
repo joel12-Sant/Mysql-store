@@ -2,7 +2,7 @@
 $host = 'mysql'; 
 $dbname = 'tienda';
 $usuario = 'root';
-$contrasena = ''; 
+$contrasena = 'root'; 
 
 try {
     $conexion = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $usuario, $contrasena);
