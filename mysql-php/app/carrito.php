@@ -14,7 +14,6 @@ $total = 0;
 try {
     $usuarioId = (int)$_SESSION['usuario_id'];
 
-    // Obtener el carrito del usuario
     $stmt = $conexion->prepare("SELECT id FROM carritos WHERE usuario_id = ?");
     $stmt->execute([$usuarioId]);
     $carrito = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -24,7 +23,6 @@ try {
     } else {
         $carritoId = $carrito['id'];
 
-        // Obtener los items del carrito y sus productos
         $stmt = $conexion->prepare("
             SELECT ci.id AS item_id, ci.producto_id, ci.cantidad, ci.talla, ci.fecha_agregado,
                    p.nombre, p.precio, p.imagen

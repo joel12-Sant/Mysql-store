@@ -6,11 +6,10 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
     exit;
 }
 
-require 'db.php'; // $conexion es tu instancia PDO
+require 'db.php'; 
 
 $id = (int)$_GET['id'] ?? 0;
 
-// Obtener datos actuales
 $stmt = $conexion->prepare("SELECT * FROM playeras WHERE id = ?");
 $stmt->execute([$id]);
 $playera = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -35,23 +34,20 @@ function getNextImageName($dir = 'img/') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nuevaImagen = $playera['imagen']; // mantener imagen actual
+    $nuevaImagen = $playera['imagen']; 
 
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-        // Borrar imagen anterior
         $rutaAnterior = 'img/' . $playera['imagen'];
         if (file_exists($rutaAnterior)) {
             unlink($rutaAnterior);
         }
 
-        // Guardar nueva imagen con el nombre del id + .jpg
         $nuevoNombre = $id . '.jpg';
         $rutaDestino = 'img/' . $nuevoNombre;
         move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino);
         $nuevaImagen = $nuevoNombre;
     }
 
-    // Actualizar registro
     $stmt = $conexion->prepare("UPDATE playeras SET nombre = ?, precio = ?, descripcion = ?, cantidad = ?, imagen = ? WHERE id = ?");
     $stmt->execute([
         $_POST['nombre'],

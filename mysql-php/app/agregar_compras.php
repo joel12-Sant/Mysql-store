@@ -12,7 +12,6 @@ try {
     $productosCompra = [];
     $total = 0;
 
-    // Obtener ID del carrito del usuario
     $stmt = $conexion->prepare("SELECT id FROM carritos WHERE usuario_id = ?");
     $stmt->execute([$usuarioId]);
     $carrito = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -23,7 +22,6 @@ try {
 
     $carritoId = $carrito['id'];
 
-    // Compra individual o total
     if (isset($_POST['item_id'])) {
         $itemId = $_POST['item_id'];
 
@@ -78,12 +76,10 @@ try {
         throw new Exception("No hay productos válidos para comprar.");
     }
 
-    // Insertar compra
     $stmt = $conexion->prepare("INSERT INTO compras (usuario_id, total) VALUES (?, ?)");
     $stmt->execute([$usuarioId, $total]);
     $compraId = $conexion->lastInsertId();
 
-    // Insertar productos
     $stmtItem = $conexion->prepare("INSERT INTO compra_items (compra_id, playera_id, talla, cantidad, precio_unitario)
                                     VALUES (?, ?, ?, ?, ?)");
 
@@ -97,7 +93,6 @@ try {
         ]);
     }
 
-    // Eliminar del carrito
     if (isset($_POST['item_id'])) {
         $stmt = $conexion->prepare("DELETE FROM carrito_items WHERE id = ? AND carrito_id = ?");
         $stmt->execute([$productosCompra[0]['item_id'], $carritoId]);

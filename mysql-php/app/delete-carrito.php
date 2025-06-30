@@ -22,7 +22,6 @@ try {
     $productoId = (int)$_POST['producto_id'];
     $cantidad = (int)$_POST['cantidad'];
 
-    // Verificar si el carrito pertenece al usuario
     $stmt = $conexion->prepare("SELECT id FROM carritos WHERE usuario_id = ?");
     $stmt->execute([$usuarioId]);
     $carrito = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -31,11 +30,9 @@ try {
         throw new Exception("Carrito no encontrado");
     }
 
-    // Eliminar el item del carrito_items
     $stmt = $conexion->prepare("DELETE FROM carrito_items WHERE id = ? AND carrito_id = ?");
     $stmt->execute([$itemId, $carrito['id']]);
 
-    // Restaurar inventario del producto
     $stmt = $conexion->prepare("UPDATE playeras SET cantidad = cantidad + ? WHERE id = ?");
     $stmt->execute([$cantidad, $productoId]);
 

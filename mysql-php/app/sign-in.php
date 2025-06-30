@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'db.php'; // $conexion es PDO
+require 'db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = trim($_POST['nombre']);

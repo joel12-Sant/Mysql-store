@@ -10,7 +10,6 @@ if (!isset($_SESSION['usuario_id'])) {
 try {
     $usuarioId = (int)$_SESSION['usuario_id'];
 
-    // Eliminar carrito y sus items
     $stmtCarrito = $conexion->prepare("SELECT id FROM carritos WHERE usuario_id = ?");
     $stmtCarrito->execute([$usuarioId]);
     $carrito = $stmtCarrito->fetch(PDO::FETCH_ASSOC);
@@ -18,14 +17,11 @@ try {
     if ($carrito) {
         $carritoId = $carrito['id'];
 
-        // Eliminar items del carrito
         $conexion->prepare("DELETE FROM carrito_items WHERE carrito_id = ?")->execute([$carritoId]);
 
-        // Eliminar carrito
         $conexion->prepare("DELETE FROM carritos WHERE id = ?")->execute([$carritoId]);
     }
 
-    // Eliminar compras y sus items
     $stmtCompras = $conexion->prepare("SELECT id FROM compras WHERE usuario_id = ?");
     $stmtCompras->execute([$usuarioId]);
     $compras = $stmtCompras->fetchAll(PDO::FETCH_ASSOC);
@@ -33,20 +29,14 @@ try {
     foreach ($compras as $compra) {
         $compraId = $compra['id'];
 
-        // Eliminar items de la compra
         $conexion->prepare("DELETE FROM compra_items WHERE compra_id = ?")->execute([$compraId]);
 
-        // Eliminar la compra
         $conexion->prepare("DELETE FROM compras WHERE id = ?")->execute([$compraId]);
     }
 
-    // Eliminar usuario
     $conexion->prepare("DELETE FROM usuarios WHERE id = ?")->execute([$usuarioId]);
-
-    // Cerrar sesión
+    
     session_destroy();
-
-    // Reabrir para mostrar mensaje si se desea
     session_start();
     $_SESSION['mensaje_exito'] = "Tu cuenta ha sido eliminada correctamente.";
     header("Location: index.php");

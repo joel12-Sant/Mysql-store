@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         move_uploaded_file($_FILES['imagen']['tmp_name'], "img/$nombreImagen");
     }
 
-    // Paso 4: Actualizar la fila con el nombre de la imagen
     $stmt = $conexion->prepare("UPDATE playeras SET imagen = :imagen WHERE id = :id");
     $stmt->execute([
         'imagen' => $nombreImagen,

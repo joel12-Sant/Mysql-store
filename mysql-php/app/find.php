@@ -6,13 +6,11 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
     exit;
 }
 
-require 'db.php'; // incluye $pdo
+require 'db.php';
 
-// Inicializamos filtros
 $buscar_nombre = $_GET['buscar_nombre'] ?? '';
 $buscar_precio = $_GET['buscar_precio'] ?? '';
 
-// Construir la consulta SQL con filtros
 $sql = "SELECT * FROM playeras WHERE 1=1 ";
 $params = [];
 
@@ -22,7 +20,6 @@ if (!empty($buscar_nombre)) {
 }
 
 if (!empty($buscar_precio)) {
-    // Suponemos que buscas playeras con precio menor o igual
     $sql .= " AND precio <= :precio ";
     $params['precio'] = $buscar_precio;
 }

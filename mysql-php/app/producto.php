@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'db.php'; // $conexion es PDO
+require 'db.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die("Producto no especificado.");
@@ -9,7 +9,6 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $id = (int)$_GET['id'];
 
 try {
-    // Obtener playera/producto
     $stmt = $conexion->prepare("SELECT * FROM playeras WHERE id = ?");
     $stmt->execute([$id]);
     $playera = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +32,6 @@ try {
         } elseif ($cantidad < 1 || $cantidad > $playera['cantidad']) {
             $error = "Sin stock";
         } else {
-            // Guardar en sesión para agregar después al carrito
             $_SESSION['add_to_cart'] = [
                 'producto_id' => $id,
                 'talla' => $talla,
