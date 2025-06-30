@@ -1,6 +1,6 @@
 USE tienda;
 
-INSERT INTO playeras (id, nombre, precio, stock, descripcion, imagen) VALUES
+INSERT INTO playeras (id, nombre, precio, cantidad, descripcion, imagen) VALUES
 (1, 'VueJS', 25.00, 10, 'Playera oficial de VueJS, cómoda y ligera.', '1.jpg'),
 (2, 'AngularJS', 25.00, 8, 'Playera AngularJS para fanáticos del framework.', '2.jpg'),
 (3, 'ReactJS', 25.00, 15, 'Playera ReactJS con diseño moderno.', '3.jpg'),
@@ -15,3 +15,12 @@ INSERT INTO playeras (id, nombre, precio, stock, descripcion, imagen) VALUES
 (12, 'JavaScript', 25.00, 30, 'Playera JavaScript, la reina del frontend.', '12.jpg'),
 (13, 'GraphQL', 25.00, 6, 'Playera GraphQL para APIs modernas.', '13.jpg'),
 (14, 'WordPress', 25.00, 11, 'Playera WordPress para creadores de sitios web.', '14.jpg');
+
+INSERT INTO usuarios (id, nombre, correo, password, rol, creado_en) VALUES (
+    1,
+    'admin',
+    'admin@tienda.com',
+    '$2y$10$wHvnB6W8uwH.U/yN.NhB7uI/1A8I6xC4QeZ9MycY7iRm6rF6bi2aW',
+    'admin',
+    '2025-06-25 00:00:00'
+);
