@@ -1,3 +1,7 @@
+> [!NOTE]
+> Demo en:
+> https://frontendstore.jmsweb.site/
+
 # 🛍️ FrontEnd Store
 
 **FrontEnd Store** es una tienda virtual creada como un proyecto escolar con fines académicos y prácticos. El objetivo es ofrecer una experiencia de compra real, enfocada en desarrolladores y estudiantes de programación. Esta aplicación demuestra el uso conjunto de tecnologías frontend y backend modernas, incluyendo PHP, MySQL, y Docker.
