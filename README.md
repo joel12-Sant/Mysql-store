@@ -1,8 +1,7 @@
 > [!NOTE]
-> Demo en:
-> https://frontendstore.jmsweb.site/
-> admin
-> Correo: admin@tienda.com
+> Demo en: https://frontendstore.jmsweb.site/  
+> admin  
+> Correo: admin@tienda.com  
 > Contraseña: 1234
 
 # 🛍️ FrontEnd Store
